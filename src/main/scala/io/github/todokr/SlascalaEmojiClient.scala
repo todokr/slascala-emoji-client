@@ -9,14 +9,14 @@ import scala.util.control.Exception._
 import org.jsoup.Jsoup
 import skinny.http._
 
-class SlascalaEmojiClient(teamName: String, slackCookieValue: String) {
+class SlascalaEmojiClient(teamName: String, slackCookie: String) {
 
   private val url = s"https://$teamName.slack.com/customize/emoji"
 
   def upload(emojiName: String, emojiImage: File): Either[Throwable, Unit] = {
 
     allCatch either {
-      val startPageResponse = HTTP.get(Request(url).header("Cookie", slackCookieValue))
+      val startPageResponse = HTTP.get(Request(url).header("Cookie", slackCookie))
       val doc = Jsoup.parse(startPageResponse.textBody)
       val crumb = doc.body().getElementsByAttributeValue("name", "crumb").attr("value")
       val mime = FileTypeMap.getDefaultFileTypeMap.getContentType(emojiImage)
@@ -28,7 +28,7 @@ class SlascalaEmojiClient(teamName: String, slackCookieValue: String) {
         FormData("img", FileInput(emojiImage, mime))
       )
 
-      val uploadRequest = Request(url).header("Cookie", slackCookieValue).multipartFormData(multipart)
+      val uploadRequest = Request(url).header("Cookie", slackCookie).multipartFormData(multipart)
       val uploadResponse = HTTP.post(uploadRequest)
 
       val errorMessage = Jsoup.parse(uploadResponse.textBody).select(".alert").not("[style]").text().trim
