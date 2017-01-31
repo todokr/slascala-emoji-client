@@ -32,7 +32,7 @@ class SlascalaEmojiClient(teamName: String, slackCookieValue: String) {
       val uploadResponse = HTTP.post(uploadRequest)
 
       val errorMessage = Jsoup.parse(uploadResponse.textBody).select(".alert").not("[style]").text().trim
-      if (!errorMessage.isEmpty) throw new Exception(errorMessage)
+      if (errorMessage.nonEmpty) throw new Exception(errorMessage)
     }
   }
 
