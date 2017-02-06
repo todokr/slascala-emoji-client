@@ -28,7 +28,7 @@ class SlascalaEmojiClient(teamName: String, slackCookie: String) {
         FormData("img", FileInput(emojiImage, mime))
       )
 
-      val uploadRequest = Request(url).header("Cookie", slackCookie).multipartFormData(multipart)
+      val uploadRequest = Request(url).header("Cookie", slackCookie).multipartFormData(multipart).followRedirects(false)
       val uploadResponse = HTTP.post(uploadRequest)
 
       val errorMessage = Jsoup.parse(uploadResponse.textBody).select(".alert").not("[style]").text().trim
