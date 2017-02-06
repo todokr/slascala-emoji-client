@@ -28,3 +28,4 @@ To capture,
 - Deletion by name
 - Export all regestered emoji
 - Bulk upload
+- Update Emoji
