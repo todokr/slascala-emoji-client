@@ -10,8 +10,7 @@ import org.jsoup.Jsoup
 import skinny.http._
 
 class SlascalaEmojiClient(teamName: String, slackCookie: String) {
-
-
+  
   private val url = s"https://$teamName.slack.com/customize/emoji"
 
   def upload(emojiName: String, emojiImage: File): Try[Unit] = Try {
