@@ -24,7 +24,7 @@ To capture,
 3. Input `document.cookie` to JavaScript console
 4. Copy result
 
-## Loadmap
+## Roadmap
 - Deletion by name
 - Export all regestered emoji
 - Bulk upload
